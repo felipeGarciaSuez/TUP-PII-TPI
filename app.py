@@ -2,6 +2,7 @@
 
 
 import os
+import bibloteca as biblioteca
 
 print("Bienvenido!")
 respuesta = ''
@@ -11,7 +12,7 @@ def menu():
     print("2 - Gestionar Devolucion")
     print("3 - Registrar nuevo libro")
     print("4 - Elimiar ejemplar")
-    print("5 - Mostrar ejemplares perstados")
+    print("5 - Mostrar ejemplares prestados")
     print("6 - Salir")
 
 while respuesta != "salir":
@@ -20,8 +21,7 @@ while respuesta != "salir":
     os.system ("cls") #Limpiar pantalla
     if opt.isnumeric():
         if int(opt) == 1:
-            #completar
-            print()
+            biblioteca.prestar_ejemplar_libro()
         elif int(opt) == 2:
             #completar
             print()
