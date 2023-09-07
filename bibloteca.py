@@ -9,7 +9,8 @@ libros.append(l.libro2)
 libros.append(l.libro3)
 
 def ejemplares_prestados():
-    # completar
+    # for libro in libros:
+    #     if libro[]
     return None
 
 def registrar_nuevo_libro():
@@ -23,28 +24,41 @@ def eliminar_ejemplar_libro():
 
 def prestar_ejemplar_libro():
     res = mostrar_libros_disponibles()
-    encontrado = False
     # Si hay libros disponibles para alquilar ejecutamos la gestion, sino el mismo mostrar_libros_disponibles() nos va a decir que no hay
     if res == True:
-        opt = input("\nIngrese el codigo del libro que desea prestar:")
-        for libro in libros:
-            if libro['cod'] == opt:
-                encontrado = True
-                # Verificamos que el codigo exista y que tenga unidades disponibles para prestar, de caso contrario mostramos un mensaje
-                if libro['cant_ej_ad'] < 1:
-                    print(f'El libro {libro["titulo"]} no tiene ejemplares para prestar.')
+        opt = input("\nIngrese el codigo del libro que desea prestar:\n")
+        busqueda = buscar_libro(opt)
+        if busqueda:
+            # Verificamos que el codigo exista y que tenga unidades disponibles para prestar, de caso contrario mostramos un mensaje
+            if libros[busqueda]['cant_ej_ad'] < 1:
+                print(f'El libro {libros[busqueda]["titulo"]} no tiene ejemplares para prestar.')
+            else:
+                # Pedimos la confirmacion si desea alquilar con un input
+                confirmacion = input(f'\nEl libro ingresado {libros[busqueda]["titulo"]} - {libros[busqueda]["autor"]} - {libros[busqueda]["cant_ej_ad"]}\n Escriba CANCELAR para volver atras, para confirmar presione Enter\n')
+                confirmacion = confirmacion.upper()
+                if confirmacion != 'CANCELAR':
+                    libros[busqueda]['cant_ej_ad'] -= 1
+                    libros[busqueda]['cant_ej_pr'] += 1
+                    print(f'CONFIRMADO!! El libro {libros[busqueda]["titulo"]} a sido prestado!')
                 else:
-                    # Pedimos la confirmacion si desea alquilar con un input
-                    confirmacion = input(f'\nEl libro ingresado {libro["titulo"]} - {libro["autor"]} - {libro["cant_ej_ad"]}\n Escriba CANCELAR para volver atras, para confirmar presione Enter')
-                    if confirmacion != 'CANCELAR':
-                        libro['cant_ej_ad'] -= 1
-                        libro['cant_ej_pr'] += 1
-                        print(f'CONFIRMADO!! El libro {libro["titulo"]} a sido prestado!')
-        if encontrado == False:
-            print('ERROR!! No se han encontrado libros con ese codigo')
+                    print("ALQUILER CANCELADO CON EXITO.")
     return None
 
 def devolver_ejemplar_libro():
+    codigo = input("Ingrese el codigo del libro que desea devolver: \n")
+    index = buscar_libro(codigo)
+    if index:
+        if libros[index]['cant_ej_pr'] > 0:
+            confirmacion = input(f'\nEl libro ingresado {libros[index]["titulo"]} - {libros[index]["autor"]} - {libros[index]["cant_ej_pr"]} cantidades prestadas.\n Escriba CANCELAR para volver atras, para confirmar presione Enter\n')
+            confirmacion = confirmacion.upper()
+            if confirmacion != 'CANCELAR':
+                libros[index]['cant_ej_pr'] -= 1
+                libros[index]['cant_ej_ad'] += 1
+                print(f'CONFIRMADO!! El libro {libros[index]["titulo"]} a sido devuelto!')
+            else:
+                print("DEVOLUCION CANCELADO CON EXITO.")
+        else:
+            print(f'El libro {libros[index]["titulo"]} no tiene ejemplares en prestamo.')
 
     return None
 
@@ -67,6 +81,19 @@ def mostrar_libros_disponibles():
         print("No hay libros disponibles para alquilar")
     # Devolvemos el hayLibros por si cuando queremos ejecutar la funcion de prestar un libro no hay ninguno
     return hayLibros
+
+
+def buscar_libro(codigo):
+    libro_actual = False
+    contador = 0
+    for libro in libros:
+        if libro['cod'] == codigo:
+            libro_actual = contador
+        else:
+            contador += 1
+    if libro_actual == False:
+        print('ERROR!! No se han encontrado libros con ese codigo')
+    return libro_actual
 
 
 
