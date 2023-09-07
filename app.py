@@ -22,8 +22,10 @@ while respuesta != "salir":
     if opt.isnumeric():
         if int(opt) == 1:
             biblioteca.prestar_ejemplar_libro()
+            os.system("cls")
         elif int(opt) == 2:
             biblioteca.devolver_ejemplar_libro()
+            os.system("cls")
         elif int(opt) == 3:
             #completar
             print()
@@ -31,7 +33,8 @@ while respuesta != "salir":
             #completar
             print()
         elif int(opt) == 5:
-            #completar
+            biblioteca.mostrar_libros_prestados()
+            os.system("cls")
             print()
         elif int(opt) == 6:
             respuesta = "salir"

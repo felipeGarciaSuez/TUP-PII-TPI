@@ -57,6 +57,7 @@ def devolver_ejemplar_libro():
                 print(f'CONFIRMADO!! El libro {libros[index]["titulo"]} a sido devuelto!')
             else:
                 print("DEVOLUCION CANCELADO CON EXITO.")
+                aux_rta=input("Pulse cualquier tecla para continuar...")
         else:
             print(f'El libro {libros[index]["titulo"]} no tiene ejemplares en prestamo.')
 
@@ -69,13 +70,16 @@ def nuevo_libro():
 def mostrar_libros_disponibles():
     # Declaro una variable hay libros por si no hay ningun libro disponible
     hayLibros = False
-    print("COD - TITULO - AUTOR - CANTIDAD ADQUIRIDA - CANTIDAD ALQUILADA - ")
+    print("_________________________________________________________________")
+    print("|COD - TITULO - AUTOR - CANTIDAD ADQUIRIDA - CANTIDAD ALQUILADA - |")
+    print("------------------------------------------------------------------")
 
     # Primero recorro la lista con todos los libros
     for libro in libros:
         if libro["cant_ej_ad"] > 0:
             # Si el libro que recorremos tiene cantidad disponible para alquilar, mostramos el libro y seteamos el hayLibros en True
             hayLibros = True
+            print()
             print(libro["cod"],"-", libro["titulo"],"-", libro["autor"],"-", libro["cant_ej_ad"],"-", libro["cant_ej_pr"])
     if hayLibros == False:
         print("No hay libros disponibles para alquilar")
@@ -95,5 +99,23 @@ def buscar_libro(codigo):
         print('ERROR!! No se han encontrado libros con ese codigo')
     return libro_actual
 
+
+def mostrar_libros_prestados(): 
+    # Declaro una variable hay libros por si no hay ningun libro disponible
+    hayLibros = False
+    print("_________________________________________________________________")
+    print("|COD - TITULO - AUTOR - CANTIDAD ADQUIRIDA - CANTIDAD ALQUILADA - |")
+    print("------------------------------------------------------------------")
+
+    # Recorro la lista con todos los libros
+    for libro in libros:
+        if libro["cant_ej_pr"] > 0:
+            # Si la posicion del libro en la que estamos posee una cantidad mayor a 0 de ejemplares prestados mostramos y cambiamos la bandera
+            hayLibros = True
+            print(libro["cod"],"-", libro["titulo"],"-", libro["autor"],"-", libro["cant_ej_ad"],"-", libro["cant_ej_pr"])
+    if hayLibros == False:
+        print("No hay ejemplares prestados de ningun libro")
+    # Devolvemos el hayLibros por si cuando queremos ejecutar la funcion de prestar un libro no hay ninguno
+    return None
 
 
