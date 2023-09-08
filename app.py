@@ -30,8 +30,8 @@ while respuesta != "salir":
             biblioteca.registrar_nuevo_libro()
             os.system("cls")
         elif int(opt) == 4:
-            #completar
-            print()
+            biblioteca.eliminar_ejemplar_libro()
+            os.system("cls")
         elif int(opt) == 5:
             biblioteca.mostrar_libros_prestados()
             os.system("cls")

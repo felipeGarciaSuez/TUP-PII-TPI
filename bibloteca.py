@@ -20,7 +20,23 @@ def registrar_nuevo_libro():
     return None
 
 def eliminar_ejemplar_libro():
-    #completar
+    
+    mostrar_libros()
+
+    code = input("Ingrese el codigo del ejemplar que desea borrar: \n")
+    
+    index = buscar_libro(code)
+    if index != -1:
+        confirmacion = input(f"El libro {libros[index]['titulo']} sera eliminado, escriba CANCELAR para volver atras.\n")
+        confirmacion = confirmacion.upper()
+
+        if confirmacion != "CANCELAR":
+            print(f"{libros[index]['titulo']} a sido eliminado con exito")
+            libros.remove(libros[index])
+        
+        else:
+            print("Cancelado con exito!")
+    
     return None
 
 def prestar_ejemplar_libro():
@@ -125,3 +141,13 @@ def mostrar_libros_prestados():
     # Devolvemos el hayLibros por si cuando queremos ejecutar la funcion de prestar un libro no hay ninguno
     return None
 
+
+def mostrar_libros():
+    print("_________________________________________________________________")
+    print("|COD - TITULO - AUTOR - CANTIDAD ADQUIRIDA - CANTIDAD ALQUILADA - |")
+    print("------------------------------------------------------------------")
+
+    # Recorro la lista con todos los libros
+    for libro in libros:
+        print(libro["cod"],"-", libro["titulo"],"-", libro["autor"],"-", libro["cant_ej_ad"],"-", libro["cant_ej_pr"])
+    return None
