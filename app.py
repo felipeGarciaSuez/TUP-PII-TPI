@@ -27,15 +27,14 @@ while respuesta != "salir":
             biblioteca.devolver_ejemplar_libro()
             os.system("cls")
         elif int(opt) == 3:
-            #completar
-            print()
+            biblioteca.registrar_nuevo_libro()
+            os.system("cls")
         elif int(opt) == 4:
             #completar
             print()
         elif int(opt) == 5:
             biblioteca.mostrar_libros_prestados()
             os.system("cls")
-            print()
         elif int(opt) == 6:
             respuesta = "salir"
         else: print("Ingrese una opción válida")

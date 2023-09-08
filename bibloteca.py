@@ -8,14 +8,15 @@ libros.append(l.libro1)
 libros.append(l.libro2)
 libros.append(l.libro3)
 
-def ejemplares_prestados():
-    # for libro in libros:
-    #     if libro[]
-    return None
 
 def registrar_nuevo_libro():
-    nuevo_libro = l.nuevo_libro()
-    #completar
+    cant_a_agregar = int(input("Cuantos libros desea agregar?\n"))
+    
+    for i in range(cant_a_agregar):
+        
+        nuevo_libro = l.nuevo_libro()
+        libros.append(nuevo_libro)
+    
     return None
 
 def eliminar_ejemplar_libro():
@@ -28,7 +29,8 @@ def prestar_ejemplar_libro():
     if res == True:
         opt = input("\nIngrese el codigo del libro que desea prestar:\n")
         busqueda = buscar_libro(opt)
-        if busqueda:
+        
+        if busqueda != -1:
             # Verificamos que el codigo exista y que tenga unidades disponibles para prestar, de caso contrario mostramos un mensaje
             if libros[busqueda]['cant_ej_ad'] < 1:
                 print(f'El libro {libros[busqueda]["titulo"]} no tiene ejemplares para prestar.')
@@ -36,6 +38,7 @@ def prestar_ejemplar_libro():
                 # Pedimos la confirmacion si desea alquilar con un input
                 confirmacion = input(f'\nEl libro ingresado {libros[busqueda]["titulo"]} - {libros[busqueda]["autor"]} - {libros[busqueda]["cant_ej_ad"]}\n Escriba CANCELAR para volver atras, para confirmar presione Enter\n')
                 confirmacion = confirmacion.upper()
+                
                 if confirmacion != 'CANCELAR':
                     libros[busqueda]['cant_ej_ad'] -= 1
                     libros[busqueda]['cant_ej_pr'] += 1
@@ -45,12 +48,17 @@ def prestar_ejemplar_libro():
     return None
 
 def devolver_ejemplar_libro():
+    
+    mostrar_libros_prestados()
+
     codigo = input("Ingrese el codigo del libro que desea devolver: \n")
     index = buscar_libro(codigo)
-    if index:
+    
+    if index != -1:
         if libros[index]['cant_ej_pr'] > 0:
             confirmacion = input(f'\nEl libro ingresado {libros[index]["titulo"]} - {libros[index]["autor"]} - {libros[index]["cant_ej_pr"]} cantidades prestadas.\n Escriba CANCELAR para volver atras, para confirmar presione Enter\n')
             confirmacion = confirmacion.upper()
+            
             if confirmacion != 'CANCELAR':
                 libros[index]['cant_ej_pr'] -= 1
                 libros[index]['cant_ej_ad'] += 1
@@ -63,13 +71,10 @@ def devolver_ejemplar_libro():
 
     return None
 
-def nuevo_libro():
-    #completar
-    return None
-
 def mostrar_libros_disponibles():
     # Declaro una variable hay libros por si no hay ningun libro disponible
     hayLibros = False
+    
     print("_________________________________________________________________")
     print("|COD - TITULO - AUTOR - CANTIDAD ADQUIRIDA - CANTIDAD ALQUILADA - |")
     print("------------------------------------------------------------------")
@@ -88,14 +93,16 @@ def mostrar_libros_disponibles():
 
 
 def buscar_libro(codigo):
-    libro_actual = False
+    libro_actual = -1
     contador = 0
+    
     for libro in libros:
         if libro['cod'] == codigo:
             libro_actual = contador
         else:
             contador += 1
-    if libro_actual == False:
+    
+    if libro_actual == -1:
         print('ERROR!! No se han encontrado libros con ese codigo')
     return libro_actual
 
@@ -117,5 +124,4 @@ def mostrar_libros_prestados():
         print("No hay ejemplares prestados de ningun libro")
     # Devolvemos el hayLibros por si cuando queremos ejecutar la funcion de prestar un libro no hay ninguno
     return None
-
 
