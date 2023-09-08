@@ -23,7 +23,8 @@ def nuevo_libro():
         
         if res.upper() == "NO":
             datos = True
-
+        else:
+            print(f"El libro {nuevo_libro['titulo']} a sido ingresado con exito!")
     return nuevo_libro
 
 def generar_codigo():
